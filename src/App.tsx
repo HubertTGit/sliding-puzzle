@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Puzzle from './Puzzle';
 import {
@@ -10,33 +10,33 @@ import {
 
 function App() {
   const [pieces, setPieces] = useState(initialPuzzle);
+  const [win, setWin] = useState(false);
+
+  useEffect(() => {
+    if (pieces.every((p, i) => p.originalPosition === i)) {
+      setWin(true);
+    }
+  }, [pieces]);
 
   function rearrangeAdjacentCards(idx: number) {
     const emptyIndex = findEmptyIndex(pieces);
-    // swap the empty card with the clicked card
     const newPuzzle = [...pieces];
     [newPuzzle[idx], newPuzzle[emptyIndex]] = [
       newPuzzle[emptyIndex],
       newPuzzle[idx],
     ];
+    setPieces(setAdjacentCards(newPuzzle));
+  }
 
-    //set the adjacent cards
-    const _moved = setAdjacentCards(newPuzzle);
-
-    //set the new state
-    setPieces(_moved);
+  function shuffleAndSetAdjacentCards(pieces: typeof initialPuzzle) {
+    const shuffled = shuffleArray(pieces);
+    return setAdjacentCards(shuffled);
   }
 
   return (
     <main>
-      <button
-        onClick={() =>
-          setPieces((pieces) => {
-            const shuffled = shuffleArray(pieces);
-            return setAdjacentCards(shuffled);
-          })
-        }
-      >
+      <h1>{win && 'you have won 🎉🤡'}</h1>
+      <button onClick={() => setPieces(shuffleAndSetAdjacentCards)}>
         shuffle
       </button>
       <Puzzle puzzle={pieces} onClick={rearrangeAdjacentCards} />
