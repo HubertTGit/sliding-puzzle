@@ -36,7 +36,12 @@ function App() {
   return (
     <main>
       <h1>{win && 'you have won 🎉🤡'}</h1>
-      <button onClick={() => setPieces(shuffleAndSetAdjacentCards)}>
+      <button
+        onClick={() => {
+          setPieces(shuffleAndSetAdjacentCards);
+          setWin(false);
+        }}
+      >
         shuffle
       </button>
       <Puzzle puzzle={pieces} onClick={rearrangeAdjacentCards} />
