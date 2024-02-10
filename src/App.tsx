@@ -8,9 +8,13 @@ import {
   shuffleArray,
 } from './utils/logic';
 
+import useWindowSize from 'react-use/lib/useWindowSize';
+import Confetti from 'react-confetti';
+
 function App() {
   const [pieces, setPieces] = useState(initialPuzzle);
   const [win, setWin] = useState(false);
+  const { width, height } = useWindowSize();
 
   // check if player has won
   useEffect(() => {
@@ -36,7 +40,13 @@ function App() {
 
   return (
     <main>
-      <h1>{win && 'you have won 🎉🤡'}</h1>
+      {win && (
+        <>
+          <Confetti width={width} height={height} />
+          <h1>'you have won 🎉🤡'</h1>
+        </>
+      )}
+
       <button
         onClick={() => {
           setPieces(shuffleAndSetAdjacentCards);

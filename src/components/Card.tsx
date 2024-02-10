@@ -27,7 +27,7 @@ export const Card = ({ card, onCardClick, index }: CardProps) => {
         card.isEnabled && 'transition-colors hover:text-green-400'
       }`}
     >
-      {card.isEmpty ? '' : card.originalPosition}
+      {card.isEmpty ? '' : card.originalPosition + 1}
     </div>
   );
 };
