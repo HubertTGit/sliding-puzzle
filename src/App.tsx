@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { Puzzle } from './components/Puzzle';
+import { PuzzleComponent } from './components/Puzzle';
 import {
   findEmptyIndex,
   initialPuzzle,
@@ -55,7 +55,7 @@ function App() {
       >
         shuffle
       </button>
-      <Puzzle puzzle={pieces} onClick={rearrangeAdjacentCards} />
+      <PuzzleComponent puzzle={pieces} onClick={rearrangeAdjacentCards} />
     </main>
   );
 }

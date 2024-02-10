@@ -6,9 +6,11 @@ export interface ICard {
   positionY?: number;
 }
 
-const CARD_SIZE = 100;
+export const CARD_SIZE = 100;
 
-// allowed puzzle sizes are 3x3, 4x4, 5x5
+/**initial puzzle base structure
+ * allowed puzzle sizes are 3x3, 4x4, 5x5 (must be a perfect square)
+ */
 function createBase(size: 9 | 16 | 25): ICard[] {
   return Array.from({ length: size }, (_, i) => ({
     originalPosition: i,
@@ -20,20 +22,73 @@ function createBase(size: 9 | 16 | 25): ICard[] {
 }
 
 function calculatePosX(idx: number, size: number): number {
-  const rowLength = Math.sqrt(size);
-  const multiplication = idx % rowLength;
+  // divide by the row length event example size 9 = 3x3..
+  const dimension = Math.sqrt(size);
+  //get the remainder of the division and use it to offset horizontally by multiplying by the card size
+  const columnPosition = idx % dimension;
   //offset horizontally
-  return multiplication * CARD_SIZE * -1;
+  return columnPosition * CARD_SIZE * -1;
 }
 
 function calculatePosY(idx: number, size: number): number {
-  const colLength = Math.sqrt(size);
-  const row = Math.floor(idx / colLength);
-  //offset vertically
-  return row * CARD_SIZE * -1;
+  // divide by the column length event example size 9 = 3x3..
+  const dimension = Math.sqrt(size);
+  //floor by division to get the column position
+  const rowPosition = Math.floor(idx / dimension);
+  //using the column position offset vertically
+  return rowPosition * CARD_SIZE * -1;
 }
 
-function createMatrix<T>(): Map<T, T[]> {
+function createMatrix<T>(size: 9 | 16 | 25): Map<T, T[]> {
+  //TODO:calculate the matrix based in size which is 3x3, 4x4, 5x5
+  // divide by the row length event example size 9 = 3x3..
+  const dimension = Math.sqrt(size);
+
+  Array.from({ length: size }, (_, i) => {
+    const colPosition = i % dimension;
+    const rowPosition = Math.floor(i / dimension);
+    const lastRowOrColumn = dimension - 1;
+
+    //top left corner or top right corner or bottom left corner or bottom right corner
+    if (
+      (colPosition === 0 && rowPosition === 0) || //top left corner
+      (colPosition === lastRowOrColumn && rowPosition === 0) || //top right corner
+      (colPosition === 0 && rowPosition === lastRowOrColumn) || //bottom left corner
+      (colPosition === lastRowOrColumn && rowPosition === lastRowOrColumn) //bottom right corner
+    ) {
+      console.log('corners', [1, 2]);
+    }
+
+    //top row or left column or right column or bottom row
+    if (
+      (rowPosition === 0 &&
+        colPosition !== 0 &&
+        colPosition !== lastRowOrColumn) || //top row
+      (colPosition === 0 &&
+        rowPosition !== 0 &&
+        rowPosition !== lastRowOrColumn) || //left column
+      (colPosition === lastRowOrColumn &&
+        rowPosition !== 0 &&
+        rowPosition !== lastRowOrColumn) || //right column
+      (rowPosition === lastRowOrColumn &&
+        colPosition !== 0 &&
+        colPosition !== lastRowOrColumn) //bottom row
+    ) {
+      console.log('wall', 3);
+    }
+
+    //middle
+    if (
+      rowPosition !== 0 &&
+      colPosition !== 0 &&
+      rowPosition !== lastRowOrColumn &&
+      colPosition !== lastRowOrColumn &&
+      size > 1
+    ) {
+      console.log('middle', 4);
+    }
+  });
+
   const matrix = new Map();
   matrix.set(0, [1, 3]);
   matrix.set(1, [0, 2, 4]);
@@ -48,7 +103,7 @@ function createMatrix<T>(): Map<T, T[]> {
 }
 
 const base = createBase(9);
-const matrix = createMatrix<number>();
+const matrix = createMatrix<number>(9);
 
 export function shuffleArray(inputArray: ICard[]): ICard[] {
   // copy the array

@@ -1,4 +1,4 @@
-import { ICard } from '../utils/logic';
+import { ICard, CARD_SIZE } from '../utils/logic';
 import classes from './Card.module.scss';
 
 interface CardProps {
@@ -7,7 +7,7 @@ interface CardProps {
   index: number;
 }
 
-export const Card = ({ card, onCardClick, index }: CardProps) => {
+export const CardComponent = ({ card, onCardClick, index }: CardProps) => {
   return (
     <div
       style={{
@@ -19,12 +19,12 @@ export const Card = ({ card, onCardClick, index }: CardProps) => {
           onCardClick(index);
         }
       }}
-      className={`w-[100px] h-[100px] flex justify-center items-center border rounded-sm ${
+      className={`w-[${CARD_SIZE}px] h-[${CARD_SIZE}px] flex justify-center items-center border rounded-sm ${
         !card.isEmpty && classes.cardbg
-      } ${!card.isEmpty && 'bg[center_top_1rem]'} ${
+      } ${!card.isEmpty && ' hover:text-black hover:cursor-grab'} ${
         card.isEmpty && 'bg-transparent'
       } ${card.originalPosition === index && 'text-green'} ${
-        card.isEnabled && 'transition-colors hover:text-green-400'
+        card.isEnabled && 'transition-colors'
       }`}
     >
       {card.isEmpty ? '' : card.originalPosition + 1}

@@ -1,4 +1,4 @@
-import { Card } from './Card';
+import { CardComponent } from './Card';
 import { ICard } from '../utils/logic';
 
 interface PuzzleProps {
@@ -6,11 +6,11 @@ interface PuzzleProps {
   onClick: (idx: number) => void;
 }
 
-export const Puzzle = ({ puzzle, onClick }: PuzzleProps) => {
+export const PuzzleComponent = ({ puzzle, onClick }: PuzzleProps) => {
   return (
     <div className="flex flex-wrap w-[300px]">
       {puzzle.map((d, i) => (
-        <Card key={i} card={d} index={i} onCardClick={onClick} />
+        <CardComponent key={i} card={d} index={i} onCardClick={onClick} />
       ))}
     </div>
   );
