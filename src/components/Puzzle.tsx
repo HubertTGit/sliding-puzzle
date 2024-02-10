@@ -8,7 +8,7 @@ interface PuzzleProps {
 
 export const PuzzleComponent = ({ puzzle, onClick }: PuzzleProps) => {
   return (
-    <div className="flex flex-wrap w-[300px]">
+    <div className="grid-cols-3 grid">
       {puzzle.map((d, i) => (
         <CardComponent key={i} card={d} index={i} onCardClick={onClick} />
       ))}

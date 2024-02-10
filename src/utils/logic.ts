@@ -56,7 +56,38 @@ function createMatrix<T>(size: 9 | 16 | 25): Map<T, T[]> {
       (colPosition === 0 && rowPosition === lastRowOrColumn) || //bottom left corner
       (colPosition === lastRowOrColumn && rowPosition === lastRowOrColumn) //bottom right corner
     ) {
-      console.log('corners', [1, 2]);
+      // top left corner
+      if (colPosition === 0 && rowPosition === 0) {
+        const targetmatrix = [colPosition + 1, (rowPosition + 1) * dimension];
+        console.log('corner', targetmatrix);
+      }
+
+      // top right corner
+      if (colPosition === lastRowOrColumn && rowPosition === 0) {
+        const targetmatrix = [
+          colPosition - 1,
+          lastRowOrColumn * lastRowOrColumn + 1,
+        ];
+        console.log('corner', targetmatrix);
+      }
+
+      // bottom left corner
+      if (colPosition === 0 && rowPosition === lastRowOrColumn) {
+        const targetmatrix = [
+          lastRowOrColumn + 1,
+          lastRowOrColumn * dimension + 1,
+        ];
+        console.log('corner', targetmatrix);
+      }
+
+      // bottom right corner
+      if (colPosition === lastRowOrColumn && rowPosition === lastRowOrColumn) {
+        const targetmatrix = [
+          lastRowOrColumn * dimension - 1,
+          lastRowOrColumn * dimension + 1,
+        ];
+        console.log('corner', targetmatrix);
+      }
     }
 
     //top row or left column or right column or bottom row
