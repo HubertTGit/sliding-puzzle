@@ -2,14 +2,42 @@ export interface ICard {
   originalPosition: number;
   isEnabled: boolean;
   isEmpty?: boolean;
+  positionX?: number;
+  positionY?: number;
 }
 
-function createBase(size: number): ICard[] {
+const CARD_SIZE = 100;
+
+// allowed puzzle sizes are 3x3, 4x4, 5x5
+function createBase(size: 9 | 16 | 25): ICard[] {
   return Array.from({ length: size }, (_, i) => ({
     originalPosition: i,
     isEnabled: false,
     isEmpty: i === size - 1,
+    positionX: calculatePosX(i, size),
+    positionY: calculatePosY(i, size),
   }));
+}
+
+function calculatePosX(idx: number, size: number): number {
+  const rowLength = Math.sqrt(size);
+  const multiplication = idx % rowLength;
+
+  //offset
+  return multiplication * CARD_SIZE * -1;
+}
+
+function calculatePosY(idx: number, size: number): number {
+  //const colLength = Math.sqrt(size);
+  if (idx <= 3) {
+    return 0;
+  }
+
+  if (idx >= 3 && idx <= 6) {
+    return CARD_SIZE * -1;
+  }
+
+  return CARD_SIZE * -2;
 }
 
 function createMatrix<T>(): Map<T, T[]> {
@@ -30,11 +58,16 @@ const base = createBase(9);
 const matrix = createMatrix<number>();
 
 export function shuffleArray(inputArray: ICard[]): ICard[] {
+  // copy the array
   const array = [...inputArray];
+
+  // shuffle the array
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
+
+  // return shuffled array
   return array;
 }
 

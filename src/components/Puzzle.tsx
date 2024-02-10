@@ -1,12 +1,12 @@
-import Card from './Card';
-import { ICard } from './util/logic';
+import { Card } from './Card';
+import { ICard } from '../utils/logic';
 
 interface PuzzleProps {
   puzzle: ICard[];
   onClick: (idx: number) => void;
 }
 
-export default function Puzzle({ puzzle, onClick }: PuzzleProps) {
+export const Puzzle = ({ puzzle, onClick }: PuzzleProps) => {
   return (
     <div className="flex flex-wrap w-[300px]">
       {puzzle.map((d, i) => (
@@ -14,4 +14,4 @@ export default function Puzzle({ puzzle, onClick }: PuzzleProps) {
       ))}
     </div>
   );
-}
+};

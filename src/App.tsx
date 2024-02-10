@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
 import './App.css';
-import Puzzle from './Puzzle';
+import { useEffect, useState } from 'react';
+import { Puzzle } from './components/Puzzle';
 import {
   findEmptyIndex,
   initialPuzzle,
   setAdjacentCards,
   shuffleArray,
-} from './util/logic';
+} from './utils/logic';
 
 function App() {
   const [pieces, setPieces] = useState(initialPuzzle);
   const [win, setWin] = useState(false);
 
+  // check if player has won
   useEffect(() => {
     if (pieces.every((p, i) => p.originalPosition === i)) {
       setWin(true);
