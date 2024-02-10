@@ -22,22 +22,15 @@ function createBase(size: 9 | 16 | 25): ICard[] {
 function calculatePosX(idx: number, size: number): number {
   const rowLength = Math.sqrt(size);
   const multiplication = idx % rowLength;
-
-  //offset
+  //offset horizontally
   return multiplication * CARD_SIZE * -1;
 }
 
 function calculatePosY(idx: number, size: number): number {
-  //const colLength = Math.sqrt(size);
-  if (idx <= 3) {
-    return 0;
-  }
-
-  if (idx >= 3 && idx <= 6) {
-    return CARD_SIZE * -1;
-  }
-
-  return CARD_SIZE * -2;
+  const colLength = Math.sqrt(size);
+  const row = Math.floor(idx / colLength);
+  //offset vertically
+  return row * CARD_SIZE * -1;
 }
 
 function createMatrix<T>(): Map<T, T[]> {

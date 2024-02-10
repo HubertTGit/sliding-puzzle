@@ -8,8 +8,6 @@ interface CardProps {
 }
 
 export const Card = ({ card, onCardClick, index }: CardProps) => {
-  console.log(card.positionX, card.originalPosition);
-
   return (
     <div
       style={{
@@ -29,7 +27,7 @@ export const Card = ({ card, onCardClick, index }: CardProps) => {
         card.isEnabled && 'transition-colors hover:text-green-400'
       }`}
     >
-      {card.isEmpty ? '' : card.originalPosition + 1}
+      {card.isEmpty ? '' : card.originalPosition}
     </div>
   );
 };
