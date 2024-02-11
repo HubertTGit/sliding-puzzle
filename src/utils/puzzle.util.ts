@@ -5,31 +5,33 @@ import {
   createMatrixAlgorithmBasedOnSquareSize,
 } from './puzzle.algo';
 
+export const INITIAL_SIZE = 9;
+
 /**initial puzzle base structure
  * allowed puzzle sizes are 3x3, 4x4, 5x5 (must be a perfect square)
  */
-function createBase(size: 9 | 16 | 25): Card[] {
+function createBase(size: number): Card[] {
   const dimension = Math.sqrt(size);
   return Array.from({ length: size }, (_, i) => ({
     originalPosition: i,
     isEnabled: false,
-    isEmpty: i === size - 1,
+    isEmpty: i === size - 1, //set last card as empty
     positionX: calculatePosX(i, size),
     positionY: calculatePosY(i, size),
     dimension,
   }));
 }
 
-function createMatrix(size: 9 | 16 | 25): Map<number, number[]> {
+function createMatrix(size: number): Map<number, number[]> {
   return createMatrixAlgorithmBasedOnSquareSize(size);
 }
+export const initial_matrix = createMatrix(INITIAL_SIZE);
 
-const base = createBase(9);
-const matrix = createMatrix(9);
+export function shuffleArray(size: number): Card[] {
+  const base = createBase(size);
 
-export function shuffleArray(inputArray: Card[]): Card[] {
   // copy the array
-  const array = [...inputArray];
+  const array = [...base];
 
   // shuffle the array
   for (let i = array.length - 1; i > 0; i--) {
@@ -45,7 +47,10 @@ export function findEmptyIndex(cards: Card[]): number {
   return cards.findIndex((c) => c.isEmpty);
 }
 
-export function setAdjacentCards(cards: Card[]): Card[] {
+export function setAdjacentCards(
+  cards: Card[],
+  matrix: Map<number, number[]>
+): Card[] {
   //reset isEnabled = false
   const _cards = cards.map((d) => {
     d.isEnabled = false;
@@ -65,5 +70,5 @@ export function setAdjacentCards(cards: Card[]): Card[] {
   }));
 }
 // Usage
-const shuffled = shuffleArray(base);
-export const initialPuzzle = setAdjacentCards(shuffled);
+const shuffled = shuffleArray(INITIAL_SIZE);
+export const initialPuzzle = setAdjacentCards(shuffled, initial_matrix);

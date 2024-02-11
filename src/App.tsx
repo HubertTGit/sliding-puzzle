@@ -6,6 +6,8 @@ import {
   initialPuzzle,
   setAdjacentCards,
   shuffleArray,
+  initial_matrix,
+  INITIAL_SIZE,
 } from './utils/puzzle.util';
 
 import useWindowSize from 'react-use/lib/useWindowSize';
@@ -14,7 +16,8 @@ import { Card } from './interfaces/puzzle.interface';
 
 function App() {
   const [pieces, setPieces] = useState(initialPuzzle);
-  const [difficulty, setDifficulty] = useState<number>(9);
+  const [difficulty, setDifficulty] = useState<number>(INITIAL_SIZE);
+  const [matrices, setMatrix] = useState<Map<number, number[]>>(initial_matrix);
   const [win, setWin] = useState(false);
   const { width, height } = useWindowSize();
 
@@ -38,13 +41,7 @@ function App() {
       newPuzzle[emptyIndex],
       newPuzzle[idx],
     ];
-    setPieces(setAdjacentCards(newPuzzle));
-  };
-
-  // shuffle and set adjacent cards
-  const shuffleAndSetAdjacentCards = (pieces: Card[]) => {
-    const shuffled = shuffleArray(pieces);
-    return setAdjacentCards(shuffled);
+    setPieces(setAdjacentCards(newPuzzle, matrices));
   };
 
   return (
@@ -59,7 +56,9 @@ function App() {
 
       <button
         onClick={() => {
-          setPieces(shuffleAndSetAdjacentCards);
+          const shuffled = shuffleArray(difficulty);
+          const newCards = setAdjacentCards(shuffled, matrices);
+          setPieces(newCards);
           setWin(false);
         }}
       >
