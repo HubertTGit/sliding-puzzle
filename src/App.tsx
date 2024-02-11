@@ -52,7 +52,7 @@ function App() {
       {win && (
         <>
           <Confetti width={width} height={height} />
-          <h1 className="text-center">Conngratulation 🎉🤡</h1>
+          <h1 className="text-center">Congrats 🎉🤡</h1>
           <p className="text-center">{`you have completed ${difficulty}x${difficulty} puzzle`}</p>
         </>
       )}
@@ -63,7 +63,7 @@ function App() {
           setWin(false);
         }}
       >
-        shuffle
+        {win ? 'start again' : 'shuffle cards'}
       </button>
 
       <div className=" flex justify-between items-center py-4">
