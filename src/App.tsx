@@ -6,7 +6,7 @@ import {
   initialPuzzle,
   setAdjacentCards,
   shuffleArray,
-} from './utils/logic';
+} from './utils/puzzle.util';
 
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
@@ -55,7 +55,11 @@ function App() {
       >
         shuffle
       </button>
-      <PuzzleComponent puzzle={pieces} onClick={rearrangeAdjacentCards} />
+      <PuzzleComponent
+        puzzle={pieces}
+        onClick={rearrangeAdjacentCards}
+        dimension={pieces[0].dimension}
+      />
     </main>
   );
 }
