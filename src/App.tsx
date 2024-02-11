@@ -31,7 +31,7 @@ function App() {
   }, [difficulty]);
 
   // rearrange adjacent cards
-  const rearrangeAdjacentCards = (idx: number) => {
+  const swapAdjacentCards = (idx: number) => {
     const emptyIndex = findEmptyIndex(pieces);
     const newPuzzle = [...pieces];
     [newPuzzle[idx], newPuzzle[emptyIndex]] = [
@@ -74,15 +74,15 @@ function App() {
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value as unknown as number)}
         >
-          <option value="9">9x9 puzzle</option>
-          <option value="16">16x16 puzzle</option>
-          <option value="25">25x25 puzzle</option>
+          <option value="9">3x3 puzzle</option>
+          <option value="16">4x4 puzzle</option>
+          <option value="25">5x5 puzzle</option>
         </select>
       </div>
 
       <PuzzleComponent
         puzzle={pieces}
-        onClick={rearrangeAdjacentCards}
+        onClick={swapAdjacentCards}
         dimension={pieces[0].dimension}
       />
     </main>
