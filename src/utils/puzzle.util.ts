@@ -22,7 +22,7 @@ function createBase(size: number): Card[] {
   }));
 }
 
-function createMatrix(size: number): Map<number, number[]> {
+export function createMatrix(size: number): Map<number, number[]> {
   return createMatrixAlgorithmBasedOnSquareSize(size);
 }
 export const initial_matrix = createMatrix(INITIAL_SIZE);

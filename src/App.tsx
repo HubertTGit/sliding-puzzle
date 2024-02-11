@@ -8,11 +8,11 @@ import {
   shuffleArray,
   initial_matrix,
   INITIAL_SIZE,
+  createMatrix,
 } from './utils/puzzle.util';
 
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
-import { Card } from './interfaces/puzzle.interface';
 
 function App() {
   const [pieces, setPieces] = useState(initialPuzzle);
@@ -31,7 +31,7 @@ function App() {
   // update and reshuffle puzzle on dificulty change
   useEffect(() => {
     console.log('difficulty', difficulty);
-  }, [difficulty]);
+  }, [difficulty, matrices]);
 
   // rearrange adjacent cards
   const swapAdjacentCards = (idx: number) => {
@@ -71,7 +71,12 @@ function App() {
           className="border-2 border-black rounded-md p-2"
           id="chooseDifficulty"
           value={difficulty}
-          onChange={(e) => setDifficulty(e.target.value as unknown as number)}
+          onChange={(e) => {
+            const value = e.target.value as unknown as number;
+            const newMatrix = createMatrix(+value);
+            setMatrix(newMatrix);
+            setDifficulty(+value);
+          }}
         >
           <option value="9">3x3 puzzle</option>
           <option value="16">4x4 puzzle</option>
