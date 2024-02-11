@@ -30,7 +30,8 @@ function App() {
 
   // update and reshuffle puzzle on dificulty change
   useEffect(() => {
-    console.log('difficulty', difficulty);
+    const shuffled = shuffleArray(difficulty);
+    setPieces(setAdjacentCards(shuffled, matrices));
   }, [difficulty, matrices]);
 
   // rearrange adjacent cards
