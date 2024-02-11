@@ -24,8 +24,8 @@ function createMatrix(size: 9 | 16 | 25): Map<number, number[]> {
   return createMatrixAlgorithmBasedOnSquareSize(size);
 }
 
-const base = createBase(16);
-const matrix = createMatrix(16);
+const base = createBase(9);
+const matrix = createMatrix(9);
 
 export function shuffleArray(inputArray: Card[]): Card[] {
   // copy the array
