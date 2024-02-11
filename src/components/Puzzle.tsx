@@ -14,7 +14,7 @@ export const PuzzleComponent = ({
 }: PuzzleProps) => {
   return (
     <div className=" flex justify-center items-center">
-      <div className={`grid-cols-${dimension} grid`}>
+      <div className={`grid grid-cols-${dimension}`}>
         {puzzle.map((d, i) => (
           <CardComponent key={i} card={d} index={i} onCardClick={onClick} />
         ))}
