@@ -1,5 +1,5 @@
 import { Card } from '../interfaces/puzzle.interface';
-import { CARD_SIZE } from '../utils/puzzle.presets';
+import { CARD_SIZE } from '../utils/puzzle.util';
 import BGIMAGE from './../assets/stuck.jpg';
 
 interface CardProps {

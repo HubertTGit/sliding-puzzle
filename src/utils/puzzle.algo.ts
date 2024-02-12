@@ -1,4 +1,4 @@
-import { CARD_SIZE } from './puzzle.presets';
+import { CARD_SIZE } from './puzzle.util';
 
 export const calculatePosX = (idx: number, size: number): number => {
   // divide by the row length event example size 9 = 3x3..

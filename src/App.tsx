@@ -1,5 +1,4 @@
 import './App.css';
-import { useEffect, useState } from 'react';
 import { PuzzleComponent } from './components/Puzzle';
 import {
   findEmptyIndex,
@@ -7,7 +6,6 @@ import {
   setAdjacentCards,
   shuffleArray,
   initial_matrix,
-  INITIAL_SIZE,
   createMatrix,
   CARD_SIZE,
 } from './utils/puzzle.util';
@@ -15,26 +13,15 @@ import stuck from './assets/stuck.jpg';
 
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
+import { useGameStatus } from './custom-hooks/game.hook';
+import { usePuzzle } from './custom-hooks/puzzle.hook';
 
 function App() {
-  const [pieces, setPieces] = useState(initialPuzzle);
-  const [difficulty, setDifficulty] = useState<number>(INITIAL_SIZE);
-  const [matrices, setMatrix] = useState<Map<number, number[]>>(initial_matrix);
-  const [win, setWin] = useState(false);
+  // custom hook for puzzle
+  const { pieces, difficulty, setDifficulty, matrices, setMatrix, setPieces } =
+    usePuzzle(initialPuzzle, initial_matrix);
+  const { win, setWin } = useGameStatus(pieces);
   const { width, height } = useWindowSize();
-
-  // check if player has won based on the original position
-  useEffect(() => {
-    if (pieces.every((p, i) => p.originalPosition === i)) {
-      setWin(true);
-    }
-  }, [pieces]);
-
-  // update and reshuffle puzzle on dificulty change
-  useEffect(() => {
-    const shuffled = shuffleArray(difficulty);
-    setPieces(setAdjacentCards(shuffled, matrices));
-  }, [difficulty, matrices]);
 
   // rearrange adjacent cards
   const swapAdjacentCards = (idx: number) => {
