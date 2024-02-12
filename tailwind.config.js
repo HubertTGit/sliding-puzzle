@@ -5,4 +5,5 @@ export default {
     extend: {},
   },
   plugins: [],
+  safelist: ['grid-cols-*', 'grid-cols-3', 'grid-cols-4', 'grid-cols-5'],
 };
