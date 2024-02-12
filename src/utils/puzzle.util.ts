@@ -11,8 +11,12 @@ export const CARD_SIZE = 100;
 /**initial puzzle base structure
  * allowed puzzle sizes are 3x3, 4x4, 5x5 (must be a perfect square)
  */
-function createBase(size: number): Card[] {
+export function createBase(size: number): Card[] {
   const dimension = Math.sqrt(size);
+  //check if the size is a perfect square
+  if (dimension !== Math.floor(dimension)) {
+    throw new Error('Size must be a perfect square');
+  }
   return Array.from({ length: size }, (_, i) => ({
     originalPosition: i,
     isEnabled: false,
