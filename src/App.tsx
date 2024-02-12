@@ -9,12 +9,12 @@ import {
   initial_matrix,
   INITIAL_SIZE,
   createMatrix,
+  CARD_SIZE,
 } from './utils/puzzle.util';
 import stuck from './assets/stuck.jpg';
 
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
-import { CARD_SIZE } from './utils/puzzle.presets';
 
 function App() {
   const [pieces, setPieces] = useState(initialPuzzle);
@@ -47,6 +47,22 @@ function App() {
     setPieces(setAdjacentCards(newPuzzle, matrices));
   };
 
+  // shuffle the cards
+  const shuffleHandler = () => {
+    const shuffled = shuffleArray(difficulty);
+    const newCards = setAdjacentCards(shuffled, matrices);
+    setPieces(newCards);
+    setWin(false);
+  };
+
+  // change difficulty
+  const changeDifficultyHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value as unknown as number;
+    const newMatrix = createMatrix(+value);
+    setMatrix(newMatrix);
+    setDifficulty(+value);
+  };
+
   const sqr = Math.sqrt(difficulty);
   const imgSize = sqr * CARD_SIZE;
 
@@ -60,14 +76,7 @@ function App() {
         </>
       )}
 
-      <button
-        onClick={() => {
-          const shuffled = shuffleArray(difficulty);
-          const newCards = setAdjacentCards(shuffled, matrices);
-          setPieces(newCards);
-          setWin(false);
-        }}
-      >
+      <button onClick={shuffleHandler}>
         {win ? 'start again' : 'shuffle cards'}
       </button>
 
@@ -77,12 +86,7 @@ function App() {
           className="border-2 border-black rounded-md p-2"
           id="chooseDifficulty"
           value={difficulty}
-          onChange={(e) => {
-            const value = e.target.value as unknown as number;
-            const newMatrix = createMatrix(+value);
-            setMatrix(newMatrix);
-            setDifficulty(+value);
-          }}
+          onChange={changeDifficultyHandler}
         >
           <option value="9">3x3 puzzle</option>
           <option value="16">4x4 puzzle</option>
@@ -91,7 +95,13 @@ function App() {
       </div>
 
       {win ? (
-        <img src={stuck} alt="alt" width={imgSize} height={imgSize} />
+        <img
+          src={stuck}
+          alt="alt"
+          width={imgSize}
+          height={imgSize}
+          className="border border-orange-300 border-3 rounded-md"
+        />
       ) : (
         <PuzzleComponent
           puzzle={pieces}

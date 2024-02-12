@@ -6,6 +6,7 @@ import {
 } from './puzzle.algo';
 
 export const INITIAL_SIZE = 9;
+export const CARD_SIZE = 100;
 
 /**initial puzzle base structure
  * allowed puzzle sizes are 3x3, 4x4, 5x5 (must be a perfect square)
@@ -22,11 +23,17 @@ function createBase(size: number): Card[] {
   }));
 }
 
+/**
+ * puzzle matrix
+ * @param size - size to begin with (3x3, 4x4, 5x5) which are perfect squares
+ * @returns - mathematical matrix of the puzzle
+ */
 export function createMatrix(size: number): Map<number, number[]> {
   return createMatrixAlgorithmBasedOnSquareSize(size);
 }
 export const initial_matrix = createMatrix(INITIAL_SIZE);
 
+//shuffle the array handler
 export function shuffleArray(size: number): Card[] {
   const base = createBase(size);
 
@@ -43,10 +50,17 @@ export function shuffleArray(size: number): Card[] {
   return array;
 }
 
+//find the empty card that is invisible and return its index
 export function findEmptyIndex(cards: Card[]): number {
   return cards.findIndex((c) => c.isEmpty);
 }
 
+/**
+ * Every time a card is clicked, we need to find the empty card and check if the clicked card is adjacent to the empty card.
+ * @param cards - list of cards
+ * @param matrix - mathematical matrix of the puzzle
+ * @returns list of cards with enabled and disabled state
+ */
 export function setAdjacentCards(
   cards: Card[],
   matrix: Map<number, number[]>
