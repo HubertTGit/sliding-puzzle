@@ -8,5 +8,7 @@ Demo: [Sliding Puzzle](https://sliding-puzzle-chi.vercel.app/)
 
 ## Features
 
-- interactive puzzles with ReactJS, this tile-matching game demonstrates mid-level react proficiency.
+- interactive sliding puzzles.
+- customizeable difficulty level of 3x3, 4x4, and 5x5
 - use of `custom hooks`
+- auto calculate the puzzle matrix on change or difficulty
