@@ -10,9 +10,11 @@ import {
   INITIAL_SIZE,
   createMatrix,
 } from './utils/puzzle.util';
+import stuck from './assets/stuck.jpg';
 
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
+import { CARD_SIZE } from './utils/puzzle.presets';
 
 function App() {
   const [pieces, setPieces] = useState(initialPuzzle);
@@ -45,13 +47,16 @@ function App() {
     setPieces(setAdjacentCards(newPuzzle, matrices));
   };
 
+  const sqr = Math.sqrt(difficulty);
+  const imgSize = sqr * CARD_SIZE;
+
   return (
     <main>
       {win && (
         <>
           <Confetti width={width} height={height} />
           <h1 className="text-center">Congrats 🎉🤡</h1>
-          <p className="text-center">{`you have completed ${difficulty}x${difficulty} puzzle`}</p>
+          <p className="text-center">{`you have completed ${sqr}x${sqr} puzzle`}</p>
         </>
       )}
 
@@ -85,11 +90,15 @@ function App() {
         </select>
       </div>
 
-      <PuzzleComponent
-        puzzle={pieces}
-        onClick={swapAdjacentCards}
-        dimension={pieces[0].dimension}
-      />
+      {win ? (
+        <img src={stuck} alt="alt" width={imgSize} height={imgSize} />
+      ) : (
+        <PuzzleComponent
+          puzzle={pieces}
+          onClick={swapAdjacentCards}
+          dimension={pieces[0].dimension}
+        />
+      )}
     </main>
   );
 }
