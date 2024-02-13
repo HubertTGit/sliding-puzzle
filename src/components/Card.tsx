@@ -11,6 +11,7 @@ interface CardProps {
 export const CardComponent = ({ card, onCardClick, index }: CardProps) => {
   return (
     <div
+      data-testid="card"
       style={{
         backgroundImage: `url(${card.isEmpty ? '' : BGIMAGE})`,
         backgroundPositionX: `${card.positionX}px`,
