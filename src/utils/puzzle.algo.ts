@@ -5,8 +5,10 @@ export const calculatePosX = (idx: number, size: number): number => {
   const dimension = Math.sqrt(size);
   //get the remainder of the division and use it to offset horizontally by multiplying by the card size
   const columnPosition = idx % dimension;
+
+  const result = columnPosition * CARD_SIZE * -1;
   //offset horizontally
-  return columnPosition * CARD_SIZE * -1;
+  return result === 0 ? 0 : result;
 };
 
 export const calculatePosY = (idx: number, size: number): number => {
@@ -14,8 +16,10 @@ export const calculatePosY = (idx: number, size: number): number => {
   const dimension = Math.sqrt(size);
   //floor by division to get the column position
   const rowPosition = Math.floor(idx / dimension);
+
+  const result = rowPosition * CARD_SIZE * -1;
   //using the column position offset vertically
-  return rowPosition * CARD_SIZE * -1;
+  return result === 0 ? 0 : result;
 };
 
 /**
