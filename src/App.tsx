@@ -78,6 +78,8 @@ function App() {
           <option value="9">3x3 puzzle</option>
           <option value="16">4x4 puzzle</option>
           <option value="25">5x5 puzzle</option>
+          <option value="36">6x6 puzzle</option>
+          <option value="49">7x7 puzzle</option>
         </select>
       </div>
 
