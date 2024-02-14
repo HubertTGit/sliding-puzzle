@@ -1,8 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 import { PuzzleComponent } from './Puzzle';
-import { e } from 'vitest/dist/reporters-1evA5lom.js';
 
 describe('test Puzzle component', () => {
   const props = {
