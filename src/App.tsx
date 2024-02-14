@@ -54,16 +54,16 @@ function App() {
   const imgSize = sqr * CARD_SIZE;
 
   return (
-    <main>
+    <main data-testid="app">
       {win && (
         <>
-          <Confetti width={width} height={height} />
+          <Confetti width={width} height={height} data-testid="confetti" />
           <h1 className="text-center">Congrats 🎉🤡</h1>
           <p className="text-center">{`you have completed ${sqr}x${sqr} puzzle`}</p>
         </>
       )}
 
-      <button onClick={shuffleHandler}>
+      <button onClick={shuffleHandler} data-testid="shuffler">
         {win ? 'start again' : 'shuffle cards'}
       </button>
 
