@@ -1,9 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from './App';
-import React from 'react';
-import { createBase } from './utils/puzzle.util';
-import { vi } from 'vitest';
 
 describe('test App component', () => {
   test('renders the App component basic', async () => {
