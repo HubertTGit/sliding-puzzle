@@ -24,7 +24,19 @@ describe('test Card component', () => {
     expect(cmp).toBeInTheDocument();
   });
 
-  test('onCardClick method is when div is clicked ', async () => {
+  test('onCardClick method is NOT when div is clicked ', async () => {
+    props.card.isEnabled = false;
+
+    render(<CardComponent {...props} />);
+    const cmp = screen.getByTestId('card');
+
+    // Click on the card
+    fireEvent.click(cmp);
+    expect(props.onCardClick).not.toHaveBeenCalled();
+  });
+
+  test('onCardClick method is called when div is clicked ', async () => {
+    props.card.isEnabled = true;
     render(<CardComponent {...props} />);
     const cmp = screen.getByTestId('card');
 
@@ -32,17 +44,6 @@ describe('test Card component', () => {
     fireEvent.click(cmp);
     expect(props.onCardClick).toHaveBeenCalledTimes(1);
   });
-
-  // test('onCardClick method failed when div is clicked ', async () => {
-  //   props.card.isEnabled = false;
-
-  //   render(<CardComponent {...props} />);
-  //   const cmp = screen.getByTestId('card');
-
-  //   // Click on the card
-  //   fireEvent.click(cmp);
-  //   expect(props.onCardClick).not.toHaveBeenCalled();
-  // });
 
   test('label showing 1', async () => {
     render(<CardComponent {...props} />);
