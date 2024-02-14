@@ -8,7 +8,9 @@ Demo: [Sliding Puzzle](https://sliding-puzzle-chi.vercel.app/)
 
 ## Features
 
-- interactive sliding puzzles.
-- customizeable difficulty level of 3x3, 4x4, and 5x5
-- use of `custom hooks`
-- auto calculate the puzzle matrix on change or difficulty
+Engage in interactive sliding puzzles!
+
+- adjustable difficulty levels: Choose from grids of 3x3, 4x4, 5x5 ... tiles, and tailor the complexity to your liking.
+- custom hooks implementation for better useState destructure and code readability
+- Utilize unique feature to personalize puzzle's mechanics and add engaging twists.
+- Effortless matrix generation: No need for manual calculations! The puzzle matrix automatically adjusts whenever you change the difficulty or settings.
